@@ -6,7 +6,7 @@ import sys
 proj_dir_path = Path(__file__).parent.parent
 
 starter_file_hashes = {
-    "asserts.c": "d8259feea5dade0297370627efab52d1",
+    "asserts.c": "4e3ff84460a86c061788a43818fb81e6",
     "asserts.h": "e3ed9df2f3dac5879f1d705dafbfbb77",
     "snake_utils.c": "dbd17c0e6b35c8b30f9545e9246cf721",
     "snake_utils.h": "f5dca7645202f40c4ee1ab3c80883601",

@@ -164,10 +164,10 @@ bool assert_map_equals(game_state_t* state, unsigned int row, unsigned int col, 
 // Note: This function only works for states created from create_default_state.
 bool assert_state_equals(game_state_t* expected, game_state_t* actual) {
   // Check that width and height are equal
-  if (!assert_equals_unsigned_int("board width", expected->num_rows, actual->num_rows)) {
+  if (!assert_equals_unsigned_int("board height", expected->num_rows, actual->num_rows)) {
     return false;
   }
-  if (!assert_equals_unsigned_int("board height", (unsigned int) strlen(expected->board[0]),
+  if (!assert_equals_unsigned_int("board width", (unsigned int) strlen(expected->board[0]),
                                   (unsigned int) strlen(actual->board[0]))) {
     return false;
   }
