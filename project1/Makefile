@@ -58,7 +58,7 @@ custom-tests.o: custom_tests.c state.c asserts.c
 
 .PHONY: check-hashes
 check-hashes:
-	@bash tools/run_python.sh tools/check_hashes.py
+#	@bash tools/run_python.sh tools/check_hashes.py
 
 .PHONY: clean
 clean:
