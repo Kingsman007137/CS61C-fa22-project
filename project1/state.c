@@ -37,14 +37,15 @@ game_state_t* create_default_state() {
 
   // Allocate memory for each row in state->board
   for (int i = 0; i < state->num_rows; i++) {
-    state->board[i] = (char*)malloc(21 * sizeof(char));
+    state->board[i] = (char*)malloc(22 * sizeof(char));
   }
 
   // Initialize the board with '#' and ' '
   for (int i = 0; i < state->num_rows; i++) {
     state->board[i][0] = '#';
     state->board[i][19] = '#';
-    state->board[i][20] = '\0';
+    state->board[i][20] = '\n';
+    state->board[i][21] = '\0';
     for (int j = 1; j < 19; j++) {
       if (i == 0 || i == state->num_rows - 1) {
         state->board[i][j] = '#';
@@ -81,7 +82,7 @@ void print_board(game_state_t* state, FILE* fp) {
   // TODO: Implement this function.
   for (int i = 0; i < state->num_rows; i++) {
     //IDK why it is 21 width every string but the file size is 396...
-    fprintf(fp, "%s\n", state->board[i]);
+    fprintf(fp, state->board[i]);
   }
 
   return;
@@ -323,7 +324,30 @@ void update_state(game_state_t* state, int (*add_food)(game_state_t* state)) {
 /* Task 5 */
 game_state_t* load_board(char* filename) {
   // TODO: Implement this function.
-  return NULL;
+  FILE *fp = fopen(filename, "r");
+  if (fp == NULL) {
+    return NULL;
+  }
+
+  game_state_t *state = (game_state_t *)malloc(sizeof(game_state_t));
+  unsigned rows = 0;
+  char temp[100][100];
+  //every string's length
+  int length[100];
+  while(fgets(temp[rows], 99, fp) != NULL) {
+    length[rows] = (int)strlen(temp[rows]);
+    rows ++;
+  }
+  state->num_rows = rows;
+  state->board = (char **)malloc(state->num_rows * sizeof(char *));
+
+  for (int i = 0; i < state->num_rows; i++) {
+    state->board[i] = (char *)malloc((unsigned int)length[i] * sizeof(char));
+    strcpy(state->board[i], temp[i]);
+  }
+
+  fclose(fp);
+  return state;
 }
 
 /*
@@ -336,11 +360,47 @@ game_state_t* load_board(char* filename) {
 */
 static void find_head(game_state_t* state, unsigned int snum) {
   // TODO: Implement this function.
+  if (snum >= state->num_snakes) {
+    return;
+  }
+
+  unsigned row = state->snakes[snum].tail_row;
+  unsigned col = state->snakes[snum].tail_col;
+
+  while (!is_head(get_board_at(state, row, col))) {
+    row = get_next_row(row, get_board_at(state, row, col));
+    col = get_next_col(col, get_board_at(state, row, col));
+  }
+
+  state->snakes[snum].head_row = row;
+  state->snakes[snum].head_col = col;
+
   return;
 }
 
 /* Task 6.2 */
 game_state_t* initialize_snakes(game_state_t* state) {
   // TODO: Implement this function.
-  return NULL;
+  unsigned int tails = 0;
+  unsigned int col[100];
+  unsigned int row[100];
+  for (unsigned int i = 0; i < state->num_rows; i ++) {
+    for (unsigned int j = 0; j < strlen(state->board[i]); j ++) {
+      if (is_tail(get_board_at(state, i, j))) {
+        row[tails] = i;
+        col[tails] = j;
+        tails ++;
+      }
+    }
+  }
+
+  state->num_snakes = tails;
+  for (unsigned int i = 0; i < state->num_snakes; i ++) {
+    state->snakes[i].tail_row = row[i];
+    state->snakes[i].tail_col = col[i];
+    state->snakes[i].live = true;
+    find_head(state, i);
+  }
+
+  return state;
 }
