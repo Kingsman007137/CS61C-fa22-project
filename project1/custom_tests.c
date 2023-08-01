@@ -98,36 +98,138 @@ bool test_is_vowel() {
 
 bool test_is_tail() {
   // TODO: Implement this function.
+  char testcase_1 = 'a';
+  bool output_1 = is_tail(testcase_1);
+  if (!assert_true("output_1", output_1)) {
+    return false;
+  }
+
+  char testcase_2 = 's';
+  bool output_2 = is_tail(testcase_2);
+  if (!assert_true("output_2", output_2)) {
+    return false;
+  }
+
+  char testcase_3 = 'd';
+  bool output_3 = is_tail(testcase_3);
+  if (!assert_true("output_3", output_3)) {
+    return false;
+  }
+
+  char testcase_4 = 'w';
+  bool output_4 = is_tail(testcase_4);
+  if (!assert_true("output_4", output_4)) {
+    return false;
+  }
+
+  char testcase_5 = 'W';
+  bool output_5 = is_tail(testcase_5);
+  if (!assert_false("output_5", output_5)) {
+    return false;
+  }
+
   return true;
 }
 
 bool test_is_head() {
   // TODO: Implement this function.
+  char testcase_1 = 'A';
+  bool output_1 = is_head(testcase_1);
+  if (!assert_true("output_1", output_1)) {
+    return false;
+  }
+
+  char testcase_2 = 'S';
+  bool output_2 = is_head(testcase_2);
+  if (!assert_true("output_2", output_2)) {
+    return false;
+  }
+
+  char testcase_3 = 'D';
+  bool output_3 = is_head(testcase_3);
+  if (!assert_true("output_3", output_3)) {
+    return false;
+  }
+
+  char testcase_4 = 'W';
+  bool output_4 = is_head(testcase_4);
+  if (!assert_true("output_4", output_4)) {
+    return false;
+  }
+
+  char testcase_5 = 'x';
+  bool output_5 = is_head(testcase_5);
+  if (!assert_true("output_5", output_5)) {
+    return false;
+  }
+
   return true;
 }
 
 bool test_is_snake() {
   // TODO: Implement this function.
+  char testcase_1 = '^';
+  bool output_1 = is_snake(testcase_1);
+  if (!assert_true("output_1", output_1)) {
+    return false;
+  }
+
+  char testcase_2 = '<';
+  bool output_2 = is_snake(testcase_2);
+  if (!assert_true("output_2", output_2)) {
+    return false;
+  }
+
+  char testcase_3 = '>';
+  bool output_3 = is_snake(testcase_3);
+  if (!assert_true("output_3", output_3)) {
+    return false;
+  }
+
+  char testcase_4 = 'v';
+  bool output_4 = is_snake(testcase_4);
+  if (!assert_true("output_4", output_4)) {
+    return false;
+  }
+
+  char testcase_5 = 'h';
+  bool output_5 = is_snake(testcase_5);
+  if (!assert_false("output_5", output_5)) {
+    return false;
+  }
+
   return true;
 }
 
 bool test_body_to_tail() {
   // TODO: Implement this function.
+  if(!assert_true("body_to_tail",body_to_tail('^') == 'w')){
+    return false;
+  }
   return true;
 }
 
 bool test_head_to_body() {
   // TODO: Implement this function.
+  if(!assert_true("head_to_body",head_to_body('W') == '^')){
+    return false;
+  }
   return true;
 }
 
 bool test_get_next_x() {
   // TODO: Implement this function.
+  if(!assert_true("get_next_row",get_next_row(0,'D') == 0)){
+    return false;
+  }
   return true;
 }
 
 bool test_get_next_y() {
   // TODO: Implement this function.
+  if(!assert_true("get_next_col",get_next_col(0,'D') == 1)){
+    return false;
+  }
   return true;
 }
 
