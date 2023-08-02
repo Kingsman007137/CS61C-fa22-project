@@ -342,8 +342,9 @@ game_state_t* load_board(char* filename) {
   state->board = (char **)malloc(state->num_rows * sizeof(char *));
 
   for (int i = 0; i < state->num_rows; i++) {
-    state->board[i] = (char *)malloc((unsigned int)length[i] * sizeof(char));
+    state->board[i] = (char *)malloc((unsigned int)(length[i] + 1) * sizeof(char));
     strcpy(state->board[i], temp[i]);
+    state->board[i][length[i]] = '\0';
   }
 
   fclose(fp);
@@ -395,6 +396,7 @@ game_state_t* initialize_snakes(game_state_t* state) {
   }
 
   state->num_snakes = tails;
+  state->snakes = (snake_t *)malloc(state->num_snakes * sizeof(snake_t));
   for (unsigned int i = 0; i < state->num_snakes; i ++) {
     state->snakes[i].tail_row = row[i];
     state->snakes[i].tail_col = col[i];

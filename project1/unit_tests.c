@@ -1493,9 +1493,9 @@ int main(int argc, char* argv[]) {
     if (!test_and_print("create_default_state (Task 1)", test_create_default_state)) {
       return 0;
     }
-    // if (!test_and_print("print_board (Task 3)", test_print_board)) {
-    //   return 0;
-    // }
+    if (!test_and_print("print_board (Task 3)", test_print_board)) {
+      return 0;
+    }
     if (!test_and_print("next_square (Task 4)", test_next_square)) {
       return 0;
     }
