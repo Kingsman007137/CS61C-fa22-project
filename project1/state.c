@@ -37,15 +37,14 @@ game_state_t* create_default_state() {
 
   // Allocate memory for each row in state->board
   for (int i = 0; i < state->num_rows; i++) {
-    state->board[i] = (char*)malloc(22 * sizeof(char));
+    state->board[i] = (char*)malloc(21 * sizeof(char));
   }
 
   // Initialize the board with '#' and ' '
   for (int i = 0; i < state->num_rows; i++) {
     state->board[i][0] = '#';
     state->board[i][19] = '#';
-    state->board[i][20] = '\n';
-    state->board[i][21] = '\0';
+    state->board[i][20] = '\0';
     for (int j = 1; j < 19; j++) {
       if (i == 0 || i == state->num_rows - 1) {
         state->board[i][j] = '#';
@@ -82,7 +81,7 @@ void print_board(game_state_t* state, FILE* fp) {
   // TODO: Implement this function.
   for (int i = 0; i < state->num_rows; i++) {
     //IDK why it is 21 width every string but the file size is 396...
-    fprintf(fp, state->board[i]);
+    fprintf(fp, "%s\n", state->board[i]);
   }
 
   return;
@@ -335,6 +334,7 @@ game_state_t* load_board(char* filename) {
   //every string's length
   int length[100];
   while(fgets(temp[rows], 99, fp) != NULL) {
+    temp[rows][strlen(temp[rows]) - 1] = '\0';
     length[rows] = (int)strlen(temp[rows]);
     rows ++;
   }
