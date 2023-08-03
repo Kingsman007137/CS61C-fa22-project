@@ -321,33 +321,46 @@ void update_state(game_state_t* state, int (*add_food)(game_state_t* state)) {
 }
 
 /* Task 5 */
+//Referenced https://github.com/Songbird94/Snek
 game_state_t* load_board(char* filename) {
   // TODO: Implement this function.
-  FILE *fp = fopen(filename, "r");
-  if (fp == NULL) {
+  FILE *file = fopen(filename, "r");
+  if (file == NULL) {
     return NULL;
   }
 
-  game_state_t *state = (game_state_t *)malloc(sizeof(game_state_t));
-  unsigned rows = 0;
-  char temp[1000][1000];
-  //every string's length
-  int length[1000];
-  while(fgets(temp[rows], 999, fp) != NULL) {
-    temp[rows][strlen(temp[rows]) - 1] = '\0';
-    length[rows] = (int)strlen(temp[rows]);
-    rows ++;
+  game_state_t* state = malloc(sizeof(game_state_t));
+  state->board = malloc(sizeof(char*));
+  
+  char **buffer = malloc(sizeof(char*));
+  unsigned int row = 0;
+  unsigned int col = 0;
+  char c;
+  buffer[row] = malloc(sizeof(char));
+  while ((c = fgetc(file)) != EOF) {
+    if (col >= (strlen(buffer[row]) - 1)) {
+      buffer[row] = realloc(buffer[row], (sizeof(char) * (col+5)));
+    }
+    if (c == '\n') {
+      buffer[row][col] = '\0';
+      state->board[row] = malloc(sizeof(char) * (col+1));
+      strcpy(state->board[row], buffer[row]);
+      row ++;
+      col = 0;
+      state->board = realloc(state->board, (sizeof(char*) * (row+1)));
+      buffer[row] = malloc(sizeof(char));
+      continue;
+    }
+    //just not add too much space at one time
+    if (row >= ((sizeof(buffer) / sizeof(buffer[row])) - 1)) {
+      buffer = realloc(buffer, sizeof(char*) * (row+5));
+    }
+    buffer[row][col] = c;
+    col ++;
   }
-  state->num_rows = rows;
-  state->board = (char **)malloc(state->num_rows * sizeof(char *));
 
-  for (int i = 0; i < state->num_rows; i++) {
-    state->board[i] = (char *)malloc((unsigned int)(length[i] + 1) * sizeof(char));
-    strcpy(state->board[i], temp[i]);
-    state->board[i][length[i]] = '\0';
-  }
-
-  fclose(fp);
+  state->num_rows = row;
+  fclose(file);
   return state;
 }
 
@@ -387,8 +400,8 @@ static void find_head(game_state_t* state, unsigned int snum) {
 game_state_t* initialize_snakes(game_state_t* state) {
   // TODO: Implement this function.
   unsigned int tails = 0;
-  unsigned int col[1000];
-  unsigned int row[1000];
+  unsigned int col[2000];
+  unsigned int row[2000];
   for (unsigned int i = 0; i < state->num_rows; i ++) {
     for (unsigned int j = 0; j < strlen(state->board[i]); j ++) {
       if (is_tail(get_board_at(state, i, j))) {
