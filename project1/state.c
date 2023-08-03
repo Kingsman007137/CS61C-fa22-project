@@ -330,10 +330,10 @@ game_state_t* load_board(char* filename) {
 
   game_state_t *state = (game_state_t *)malloc(sizeof(game_state_t));
   unsigned rows = 0;
-  char temp[100][100];
+  char temp[1000][1000];
   //every string's length
-  int length[100];
-  while(fgets(temp[rows], 99, fp) != NULL) {
+  int length[1000];
+  while(fgets(temp[rows], 999, fp) != NULL) {
     temp[rows][strlen(temp[rows]) - 1] = '\0';
     length[rows] = (int)strlen(temp[rows]);
     rows ++;
@@ -365,11 +365,15 @@ static void find_head(game_state_t* state, unsigned int snum) {
     return;
   }
 
-  unsigned row = state->snakes[snum].tail_row;
-  unsigned col = state->snakes[snum].tail_col;
+  unsigned int row = state->snakes[snum].tail_row;
+  unsigned int col = state->snakes[snum].tail_col;
 
   while (!is_head(get_board_at(state, row, col))) {
     row = get_next_row(row, get_board_at(state, row, col));
+    //maybe it is head after changing row.
+    if (is_head(get_board_at(state, row, col))) {
+      break;
+    }
     col = get_next_col(col, get_board_at(state, row, col));
   }
 
@@ -383,8 +387,8 @@ static void find_head(game_state_t* state, unsigned int snum) {
 game_state_t* initialize_snakes(game_state_t* state) {
   // TODO: Implement this function.
   unsigned int tails = 0;
-  unsigned int col[100];
-  unsigned int row[100];
+  unsigned int col[1000];
+  unsigned int row[1000];
   for (unsigned int i = 0; i < state->num_rows; i ++) {
     for (unsigned int j = 0; j < strlen(state->board[i]); j ++) {
       if (is_tail(get_board_at(state, i, j))) {
