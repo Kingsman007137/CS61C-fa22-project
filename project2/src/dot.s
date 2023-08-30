@@ -36,7 +36,6 @@ loop_start:
     add t0, x0, x0
     add t1, x0, a2
 loop_continue:
-ebreak
     #get the t2th value of the first array
     sub t2, a2, t1
     mul t2, t2, a3
