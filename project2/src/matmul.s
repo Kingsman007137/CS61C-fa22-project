@@ -70,7 +70,8 @@ inner_loop_start:
     addi a3, x0, 1
     add a4, x0, t5
     jal dot
-    #a6 will change, always be the current start of matrix d
+    #t6 will change, always be the current start of matrix d
+    lw t6, 36(sp)
     sw a0, 0(t6)
 
     # Epilogue
@@ -83,7 +84,6 @@ inner_loop_start:
     lw t1, 24(sp)
     lw t2, 28(sp)
     lw t5, 32(sp)
-    lw t6, 36(sp)
     lw ra, 40(sp)
     addi sp, sp, 44
 
