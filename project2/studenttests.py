@@ -373,8 +373,7 @@ class TestInitializeZero(unittest.TestCase):
         t.input_scalar("a0", 0x7f7f7f7f)
         # call the `initialize_zero` function
         t.call("initialize_zero")
-        # check that the register a0 contains the correct array (hint: look at the check_array_pointer function in framework.py)
-        t.execute(code=26)
+        t.execute(code = 26)
 
     @classmethod
     def tearDownClass(cls):
