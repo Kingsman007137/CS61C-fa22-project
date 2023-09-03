@@ -31,7 +31,6 @@ write_matrix:
     
 
     # step 1
-    ebreak
     addi sp, sp, -12
     sw a1, 0(sp)
     sw a2, 4(sp)

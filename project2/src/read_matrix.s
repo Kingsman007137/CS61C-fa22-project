@@ -35,7 +35,6 @@ read_matrix:
     
 
     # step 1
-    ebreak
     addi sp, sp, -8
     sw a1, 0(sp)
     sw a2, 4(sp)
@@ -51,7 +50,6 @@ read_matrix:
     
 
     # step 2
-    ebreak
     addi sp, sp, -12
     sw a0, 0(sp)
     sw a1, 4(sp)
@@ -95,7 +93,6 @@ read_matrix:
     sw s1, 0(a2)
     
     # step 3
-    ebreak
     addi sp, sp, -12
     sw a0, 0(sp)
     sw a1, 4(sp)
@@ -117,7 +114,6 @@ read_matrix:
     
 
     # step 4
-    ebreak
     addi sp, sp, -16
     sw a0, 0(sp)
     sw a1, 4(sp)
@@ -138,7 +134,6 @@ read_matrix:
     addi sp, sp, 16
 
     # step 5
-    ebreak
     addi sp, sp, -16
     sw a0, 0(sp)
     sw a1, 4(sp)
@@ -155,7 +150,6 @@ read_matrix:
     addi sp, sp, 16
 
     # step 6
-    ebreak
     addi a0, t2, 0
 
     # Epilogue    

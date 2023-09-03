@@ -22,7 +22,6 @@ argmax:
     li a0, 36
     j exit
 loop_start:
-ebreak
     add t0, x0, a0
     add t1, x0, a1
     #t2 store the largest value

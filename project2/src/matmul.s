@@ -43,7 +43,6 @@ outer_loop_start:
     add t5, x0, a5
     add t6, x0, a6
 outer_loop_continue:
-ebreak
     #m1 col index, reset at the start of every outer loop
     add t2, x0, x0
 

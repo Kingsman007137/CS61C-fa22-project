@@ -32,7 +32,6 @@ error:
     li a0, 37
     j exit
 loop_start:
-ebreak
     #t0 store the sum
     add t0, x0, x0
     add t1, x0, a2
