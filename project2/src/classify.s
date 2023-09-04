@@ -252,8 +252,8 @@ classify:
     mv a0, s1
     lw a1, 0(s4)
     lw a2, 4(s4)
-    mv a3, s2
-    lw a4, 0(s5)
+    mv a3, s6
+    lw a4, 0(s3)
     lw a5, 4(s5)
     jal matmul
 
@@ -331,11 +331,10 @@ classify:
     lw a1, 4(sp)
     lw a2, 8(sp)
     lw t0, 12(sp)
-    addi sp, sp, 12
-
-
+    addi sp, sp, 16
      
 done:
+    ebreak # 16
     mv a0, t0
 
     # Epilogue    
