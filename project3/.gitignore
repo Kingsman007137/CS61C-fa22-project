@@ -275,3 +275,5 @@ Sessionx.vim
 /tests/**/*.out
 /tools/.hashes.json
 *.jar
+
+*.xlsx
